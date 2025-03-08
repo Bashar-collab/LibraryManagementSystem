@@ -131,7 +131,7 @@ class BorrowReturnControllerTest {
 
             when(borrowReturnService.returnBook(bookId, patronId)).thenReturn(expectedResponse);
 
-            mockMvc.perform(MockMvcRequestBuilders.post("/api/return/{bookId}/patron/{patronId}", bookId, patronId)
+            mockMvc.perform(MockMvcRequestBuilders.put("/api/return/{bookId}/patron/{patronId}", bookId, patronId)
                             .header("Authorization", "Bearer " + token)
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
@@ -148,7 +148,7 @@ class BorrowReturnControllerTest {
 
             when(borrowReturnService.returnBook(bookId, patronId)).thenThrow(new CustomException("No active borrowing record found"));
 
-            mockMvc.perform(MockMvcRequestBuilders.post("/api/return/{bookId}/patron/{patronId}", bookId, patronId)
+            mockMvc.perform(MockMvcRequestBuilders.put("/api/return/{bookId}/patron/{patronId}", bookId, patronId)
                             .header("Authorization", "Bearer " + token)
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest())
